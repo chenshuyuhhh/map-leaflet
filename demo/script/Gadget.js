@@ -134,17 +134,42 @@ L.drawLocal.draw.toolbar.buttons.marker = '定位';
 
 map.addControl(new L.Control.Draw(options));
 
+var on_compute_click = 0;
+// var gadget_popup = null;
+
 map.on(L.Draw.Event.CREATED, function (event) {
-    var layer = event.layer;
-    var type = event.layerType;
+    var gadget_layer = event.layer;
+    var gadget_type = event.layerType;
 
-    drawnItems.addLayer(layer);
+    drawnItems.addLayer(gadget_layer);
 
-    if (type === 'marker') {
+    if (gadget_type === 'marker') {
         // 点击之后出现计算框
-        layer.on('click', function () {
-            // 调用弹窗功能
-            popupComput(layer._latlng);
+        gadget_layer.on('click', function () {
+            var latlng_tmp = gadget_layer._latlng.lat * gadget_layer._latlng.lng;
+            if (on_compute_click == 0) {
+                on_compute_click = latlng_tmp; // 用经纬度标记layer的唯一性
+                // 调用弹窗功能
+                popupComput(gadget_layer._latlng);
+            } else if (Math.abs(on_compute_click - latlng_tmp) <= Number.EPSILON) {
+                // 经纬度相同，表示重复点击站点
+                // 保持不变
+                console.log('hh')
+                console.log(on_compute_click)
+                console.log(latlng_tmp)
+            } else {
+                // 经纬度不同，表示点击了别的站点
+                // 更新click的经纬度值
+                console.log('hhh')
+                console.log(on_compute_click)
+                console.log(latlng_tmp)
+                on_compute_click = latlng_tmp;
+                var gadget_popup = document.getElementsByClassName('compute-popup-max')[0];
+                // 把原来的计算弹窗关掉
+                gadget_popup.remove();
+                // 获得新的弹窗
+                gadget_popup = popupComput(gadget_layer._latlng);
+            }
         })
     }
 

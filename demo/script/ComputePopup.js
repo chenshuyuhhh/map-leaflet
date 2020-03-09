@@ -117,7 +117,8 @@ var popupContent = '\
 
 // 弹窗的功能交互
 function popupComput(latlng) {
-    var popup = (new L.ComputePopup({ className: 'compute-popup-max', maxWidth: '420px', closeButton: 'false' }))
+    var popup = (new L.ComputePopup(
+        { className: 'compute-popup-max', maxWidth: '420px', closeButton: false, autoClose: false, closeOnEscapeKey: false, closeOnClick: false }))
         .setLatLng(latlng)
         .setContent(popupContent) // 弹窗内部的html文档内容
         .openOn(map);
@@ -173,6 +174,7 @@ function popupComput(latlng) {
     // 关闭按钮
     $("#popup-close").click(function () {
         popup.remove();
+        on_compute_click = 0;
     });
 
     // 时按钮
@@ -232,6 +234,9 @@ function popupComput(latlng) {
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
     })
+
+    // 返回弹窗，便于后续存在关掉弹窗的情况
+    return popup;
 }
 // // add bindCustomPopup
 // L.Layer.include({
