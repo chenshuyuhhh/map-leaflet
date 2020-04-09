@@ -19,7 +19,7 @@ $.getJSON("../data/c-test.json", function (data) {
     var idw = L.idwLayer(data, {
         opacity: 0.3,
         // maxZoom: 18,
-        cellSize: 4,
+        cellSize: 2,
         exp: 2,
         max: 400
     })

@@ -123,7 +123,7 @@
 
 /* 计算按钮 */
 #button-caculate {
-    width: 136px;
+    width: 140px;
     border-radius: 1.5px;
     border: none;
     background-color: #ff67ba;
@@ -190,5 +190,4 @@
     margin: 0;
     width: 232px;
     height: 100px;
-    margin-bottom: 10px;
 }

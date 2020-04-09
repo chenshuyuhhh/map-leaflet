@@ -1,4 +1,4 @@
-// create popup
+// create popup，自定义计算弹窗
 L.ComputePopup = L.Popup.extend({
     // options:{
 
@@ -29,7 +29,7 @@ var popupContent = '\
            <span class=\'popup-title\'>六项污染物</span>\
            <span>\
                <span class=\'popup-title\'>首要污染物</span>\
-               <span id=\'main-pollutants\'>SO2</span>\
+               <span id=\'main-pollutants\'></span>\
            </span>\
            <img id=\'popup-close\' src=\'images/close.png\'>\
        </div>\
@@ -40,79 +40,35 @@ var popupContent = '\
                    <button type=\'button\' id=\'day-button\'>日</button>\
                </div>\
                <div class=\'div-value\'>\
-                   <p> PM2.5 <img src=\'images/line2.eps\'><input type=\'text\'></p>\
-                   <p> PM10 <img src=\'images/line2.eps\'><input type=\'text\'></p>\
+                   <p> PM2.5 <img src=\'images/line2.eps\'><input id=\'PM2.5-input\' type=\'text\'></p>\
+                   <p> PM10 <img src=\'images/line2.eps\'><input id=\'PM10-input\' type=\'text\'></p>\
                </div>\
                <div class=\'div-value\'>\
-                   <p>&ensp;&ensp;O3&ensp; <img src=\'images/line2.eps\'><input type=\'text\'></p>\
-                   <p>&ensp;CO&ensp; <img src=\'images/line2.eps\'><input type=\'text\'></p>\
+                   <p>&ensp;&ensp;O3&ensp; <img src=\'images/line2.eps\'><input id=\'O3-input\' type=\'text\'></p>\
+                   <p>&ensp;CO&ensp; <img src=\'images/line2.eps\'><input id=\'CO-input\' type=\'text\'></p>\
                </div>\
                <div class=\'div-value\'>\
-                   <p> &ensp;SO2&ensp; <img src=\'images/line2.eps\'><input type=\'text\'></p>\
-                   <p> NO2&ensp; <img src=\'images/line2.eps\'><input type=\'text\'></p>\
+                   <p> &ensp;SO2&ensp; <img src=\'images/line2.eps\'><input id=\'SO2-input\' type=\'text\'></p>\
+                   <p> NO2&ensp; <img src=\'images/line2.eps\'><input id=\'NO2-input\' type=\'text\'></p>\
                </div>\
                <button id=\'button-caculate\'>计算</button>\
            </div>\
            <div id=\'popup-span-right\'>\
                <div>\
                    <span>\
-                       <p class=\'composite-index-value\'>78.23</p>\
-                       <p class=\'composite-index-word\'> 综合指数</p>\
+                       <p id=\'composite-index-value\' style=\'font-size: 16px;\'></p>\
+                       <p style=\'font-size: 10px;\'> 综合指数</p>\
                    </span>\
                    <span style=\'width: 0.7px;height: 35px; background: #d4d4d4;\'></span>\
                    <span>\
-                       <p class=\'composite-index-value\'>89</p>\
-                       <p class=\'composite-index-word\'> AQI指数</p>\
+                       <p id=\'aqi-index-value\' style=\'font-size: 16px;\'></p>\
+                       <p style=\'font-size: 10px;\'>AQI指数</p>\
                    </span>\
                </div>\
                <div id=\'div-value-chart\'></div>\
            </div>\
        </div>\
    </div>\
-   <script type="text/javascript">\
-       // 基于准备好的dom，初始化echarts实例\
-       var myChart = echarts.init(document.getElementById(\'div-value-chart\'));\
-       // 指定图表的配置项和数据\
-       var option = {\
-           series: [\
-               {\
-                   name: \'访问来源\',\
-                   type: \'pie\',\
-                   radius: \'55%\',\
-                   clockwise: false,//饼图是否顺时针排列\
-                   center: [\'50%\', \'50%\'],//圆心的位置\
-                   data: [\
-                       { value: 235, name: \'PM2.5\' },\
-                       { value: 804, name: \'PM10\' },\
-                       { value: 310, name: \'CO\' },\
-                       { value: 335, name: \'SO2\' },\
-                       { value: 400, name: \'O3\' },\
-                       { value: 400, name: \'NO2\' }\
-                   ],\
-                   roseType: \'angle\',\
-                   itemStyle: {\
-                       normal: {\
-                           shadowBlur: 200,\
-                           shadowColor: \'rgba(0, 0, 0, 0.5)\'\
-                       }\
-                   },\
-                   color: [\'#834a13\', \'#bcbcb7\', \'#6f1282\', \'#085ca3\', \'#6d6912\', \'#0ea37f\'],\
-                   //设置值域的标签\
-                   label: {\
-                       normal: {\
-                           position: \'outer\',  // 设置标签位置，默认在饼状图外 可选值：\'outer\' ¦ \'inner（饼状图上）\'\
-                           formatter: \'{b} : {d}%\',   //设置标签显示内容 ，默认显示{b}\
-                           // {a}指series.name  {b}指series.data的name\
-                           // {c}指series.data的value  {d}%指这一部分占总数的百分比\
-                           textStyle: {\
-                               fontSize: 8,   //文字的字体大小\
-                               color: \'#d4d4d4\'\
-                           },\
-                       }\
-                   }\
-               },\
-           ]\
-       };\
 '
 
 // 弹窗的功能交互
@@ -123,53 +79,21 @@ function popupComput(latlng) {
         .setContent(popupContent) // 弹窗内部的html文档内容
         .openOn(map);
 
-    // layer.bindPopup(popup).openPopup();
     // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('div-value-chart'));
-    // 指定图表的配置项和数据
-    var option = {
-        series: [
-            {
-                name: '污染物',
-                type: 'pie',
-                radius: '55%',
-                clockwise: false,//饼图是否顺时针排列
-                center: ['50%', '50%'],//圆心的位置
-                data: [
-                    { value: 235, name: 'PM2.5' },
-                    { value: 274, name: 'PM10' },
-                    { value: 310, name: 'CO' },
-                    { value: 335, name: 'SO2' },
-                    { value: 400, name: 'O3' },
-                    { value: 120, name: 'NO2' }
-                ],
-                roseType: 'angle',
-                itemStyle: {
-                    normal: {
-                        shadowBlur: 200,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                },
-                color: ['#834a13', '#bcbcb7', '#6f1282', '#085ca3', '#6d6912', '#0ea37f'],
-                //设置值域的标签
-                label: {
-                    normal: {
-                        position: 'outer',  // 设置标签位置，默认在饼状图外 可选值：'outer' ¦ 'inner（饼状图上）'
-                        formatter: '{b} : {d}%',   //设置标签显示内容 ，默认显示{b}
-                        // {a}指series.name  {b}指series.data的name
-                        // {c}指series.data的value  {d}%指这一部分占总数的百分比
-                        textStyle: {
-                            fontSize: 8,   //文字的字体大小
-                            color: '#d4d4d4'
-                        },
-                    }
-                }
-            }
-        ]
-    };
+    var popup_chart = echarts.init(document.getElementById('div-value-chart'));
 
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
+    // 指定图表的配置项和数据
+    // var pie_data = [
+    //     { value: 235, name: 'PM2.5' },
+    //     { value: 274, name: 'PM10' },
+    //     { value: 310, name: 'CO' },
+    //     { value: 335, name: 'SO2' },
+    //     { value: 400, name: 'O3' },
+    //     { value: 120, name: 'NO2' }
+    // ];
+    // var option = new PieOptions()
+    // // 使用刚指定的配置项和数据显示图表。
+    // myChart.setOption(option);
 
     // 关闭按钮
     $("#popup-close").click(function () {
@@ -196,47 +120,33 @@ function popupComput(latlng) {
     // 计算按钮
     $("#button-caculate").click(function () {
         // 指定图表的配置项和数据
-        var option = {
-            series: [
-                {
-                    name: '污染物',
-                    type: 'pie',
-                    radius: '60%',
-                    data: [
-                        { value: 235, name: 'PM2.5' },
-                        { value: 224, name: 'PM10' },
-                        { value: 310, name: 'CO' },
-                        { value: 335, name: 'SO2' },
-                        { value: 200, name: 'O3' },
-                        { value: 420, name: 'NO2' }
-                    ],
-                    roseType: 'angle',
-                    itemStyle: {
-                        normal: {
-                            shadowBlur: 200,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }
-                    },
-                    color: ['#834a13', '#bcbcb7', '#6f1282', '#085ca3', '#6d6912', '#0ea37f'],
-                    //设置值域的标签
-                    label: {
-                        normal: {
-                            position: 'outer',  // 设置标签位置，默认在饼状图外 可选值：'outer' ¦ 'inner（饼状图上）'
-                            formatter: '{b} : {d}%'   //设置标签显示内容 ，默认显示{b}
-                            // {a}指series.name  {b}指series.data的name
-                            // {c}指series.data的value  {d}%指这一部分占总数的百分比
-                        }
-                    }
-                }
-            ]
-        };
+        // var data = [
+        //     { value: 235, name: 'PM2.5' },
+        //     { value: 224, name: 'PM10' },
+        //     { value: 310, name: 'CO' },
+        //     { value: 335, name: 'SO2' },
+        //     { value: 200, name: 'O3' },
+        //     { value: 420, name: 'NO2' }];
+        var six_data = getSixItems();
+        if (six_data == null) {
+            alert('请您正确输入数据');
+        } else { // 输入合法
+            // 指数计算
+            getAQI(six_data);
 
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
+            // 将数据处理成饼图数据
+            var data_array = [];
+            for (var p = 0; p < six_data.length; p++) {
+                data_array.push(
+                    { value: six_data[p], name: aqi_name[p] }
+                );
+            }
+            // 饼图设置
+            var option = new PieOptions(data_array);
+            // 使用刚指定的配置项和数据显示图表。
+            popup_chart.setOption(option);
+        }
     })
-
-    // 返回弹窗，便于后续存在关掉弹窗的情况
-    return popup;
 }
 // // add bindCustomPopup
 // L.Layer.include({

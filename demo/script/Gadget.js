@@ -154,15 +154,9 @@ map.on(L.Draw.Event.CREATED, function (event) {
             } else if (Math.abs(on_compute_click - latlng_tmp) <= Number.EPSILON) {
                 // 经纬度相同，表示重复点击站点
                 // 保持不变
-                console.log('hh')
-                console.log(on_compute_click)
-                console.log(latlng_tmp)
             } else {
                 // 经纬度不同，表示点击了别的站点
                 // 更新click的经纬度值
-                console.log('hhh')
-                console.log(on_compute_click)
-                console.log(latlng_tmp)
                 on_compute_click = latlng_tmp;
                 var gadget_popup = document.getElementsByClassName('compute-popup-max')[0];
                 // 把原来的计算弹窗关掉
@@ -172,5 +166,4 @@ map.on(L.Draw.Event.CREATED, function (event) {
             }
         })
     }
-
 });
