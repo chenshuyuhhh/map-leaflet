@@ -14,15 +14,19 @@
 
 <body>
 
+	<canvas id="canvasMap" style="display:none;"></canvas>
 	<div id="map">
 		<!-- <img src="images/AQI指标条形图.png" style="z-index:999;position: fixed" /> -->
 	</div>
 	<table id='latlng'></table>
 
+	<script src="../data/wind-test.js"></script>
+
 	<!--vendor-->
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<link rel="stylesheet" href="https://npmcdn.com/leaflet@1.1.0/dist/leaflet.css" />
 	<script src="https://npmcdn.com/leaflet@1.1.0/dist/leaflet.js"></script>
+	<script src="https://unpkg.com/esri-leaflet@2.2.4/dist/esri-leaflet.js"></script>
 
 	<!--leaflet-velocity 风向图-->
 	<link rel="stylesheet" href="../dist/velocity/leaflet-velocity.css" />
@@ -40,6 +44,12 @@
 
 	<!-- AQI -->
 	<script src="../dist/AQI/leaflet-bubbles.js"></script>
+
+	<!-- temperature -->
+	<script src="../data/boundary.js"></script>
+	<script src="../data/temp-test.js"></script>
+	<script src="../dist/temperature/kriging.js"></script>
+	<script src="../dist/temperature/draw-kriging.js"></script>
 
 	<!-- pie chart -->
 	<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
@@ -111,7 +121,7 @@
 	<!-- layer -->
 	<script src="script/Addlayer.js"></script>
 	<script src="script/ConventionalSixItems.js"></script>
-	
+
 	<!-- Gadget -->
 	<script src="../data/geoinfo.js"></script>
 	<script src="../demo/script/PieOption.js"></script>

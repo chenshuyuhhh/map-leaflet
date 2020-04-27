@@ -10,26 +10,30 @@ function initDemoMap() {
   );
 
   // 底图2
-  var Esri_DarkGreyCanvas = L.tileLayer(
-    "http://{s}.sm.mapstack.stamen.com/" +
-    "(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/" +
-    "{z}/{x}/{y}.png",
-    {
-      attribution:
-        "Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, " +
-        "NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community"
-    }
-  );
+  var Esri_DarkGreyCanvas = L.esri.tiledMapLayer({
+    url: 'http://server.arcgisonline.com/arcgis/rest/services/ESRI_Imagery_World_2D/MapServer'
+  });
+  // L.tileLayer(
+  //   "http://{s}.sm.mapstack.stamen.com/" +
+  //   "(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/" +
+  //   "{z}/{x}/{y}.png",
+  //   {
+  //     attribution:
+  //       "Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, " +
+  //       "NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community"
+  //   }
+  // );
 
   // 地图层更换，为了简便在此只保留卫星地图
   var baseLayers = {
-    "Satellite": Esri_WorldImagery, // 地图名：底图1
-    "Grey Canvas": Esri_DarkGreyCanvas // 地图名：底图2
+    "Grey Canvas": Esri_DarkGreyCanvas, // 地图名：底图2
+   // "Satellite": Esri_WorldImagery, // 地图名：底图1
   };
 
   // map 成员变量，初始为卫星地图
   var map = L.map("map", {
-    layers: [Esri_WorldImagery]
+    layers: [Esri_DarkGreyCanvas],
+    crs: L.CRS.EPSG4326,
   });
 
   // 控制层，baselayers为底图更换， addTo 将 control 和 map 绑定

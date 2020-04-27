@@ -1,5 +1,5 @@
 // 添加风向图
-$.getJSON("../data/wind-test.json", function (data) {
+function addVelocity() {
     var velocityLayer = L.velocityLayer({
         displayValues: true,
         displayOptions: {
@@ -7,25 +7,40 @@ $.getJSON("../data/wind-test.json", function (data) {
             displayPosition: "bottomleft",
             displayEmptyString: "No wind data"
         },
-        data: data,
+        data: windy_test,
         maxVelocity: 15
     });
 
     layerControl.addOverlay(velocityLayer, "Windy");
-});
+}
 
-// 画插值图，cell越小计算量越大，越卡
-$.getJSON("../data/c-test.json", function (data) {
-    var idw = L.idwLayer(data, {
-        opacity: 0.3,
-        // maxZoom: 18,
-        cellSize: 2,
-        exp: 2,
-        max: 400
-    })
+addVelocity();
 
-    layerControl.addOverlay(idw, "气温");
-});
+// 画插值气温图
+function addTemp() {
+    var tempcolors = ["#006837", "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf",
+        "#fee08b", "#fdae61", "#f46d43", "#d73027", "#a50026"];
+
+    var temperatureOverlay = new TemperatureOverlay(tempcolors);
+
+    layerControl.addOverlay(temperatureOverlay, "气温");
+    temperatureOverlay.setData(tempture);
+}
+
+addTemp();
+
+// // 画插值图，cell越小计算量越大，越卡
+// $.getJSON("../data/idw-test2.json", function (data) {
+//     var idw = L.idwLayer(data, {
+//         opacity: 0.3,
+//         // maxZoom: 18,
+//         cellSize: 2,
+//         exp: 2,
+//         max: 400
+//     })
+
+//     layerControl.addOverlay(idw, "气温");
+// });
 
 // 添加AQI指标
 $.getJSON('../data/bubble-test.json', function (data) {
@@ -51,7 +66,7 @@ $.getJSON('../data/heatmap-test2.json', function (data) {
 
     var cfg = {
         // radius should be small ONLY if scaleRadius is true (or small radius is intended)
-        "radius": .6,
+        "radius": 0.6,
         // "maxOpacity": .8,
         // scales the radius based on map zoom
         "scaleRadius": true,
@@ -64,20 +79,22 @@ $.getJSON('../data/heatmap-test2.json', function (data) {
         // which field name in your data represents the longitude - default "lng"
         lngField: 'lng',
         // which field name in your data represents the data value - default "value"
-        valueField: 'count',
-        // gradient: {
-        //   "0": '#000066',
-        //   ".1": 'blue',
-        //   ".2": 'cyan',
-        //   ".3": 'lime',
-        //   ".4": 'yellow',
-        //   ".5": 'orange',
-        //   ".6": 'red',
-        //   ".7": 'Maroon',
-        //   ".8": "#660066",
-        //   ".9": "#990099",
-        //   "1": "#bd0026"
-        // },
+        valueField: 'temp',
+        gradient: {
+            "0": '#007730',
+            ".05": '#228D00',
+            ".1": '#539700',
+            ".15": '#739D00',
+            ".2": '#91A200',
+            ".3": '#A69C00',
+            ".4": '#A68F00',
+            ".5": '#A68100',
+            ".6": "#A67400",
+            ".7": "#A66300",
+            ".8": "#A65200",
+            ".9": "#A63C00",
+            "1": "A61300",
+        },
         maxOpacity: 0.9,
     };
 
