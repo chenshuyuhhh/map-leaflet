@@ -64,9 +64,9 @@ var TemperatureOverlay = L.Layer.extend({
             // x.push(points_false[i].lnt)
             // y.push(points_false[i].lat)
             // t.push(points_false[i].value)
-            t.push(tempture[i].properties.Temperatur); // 权重值
-            x.push(tempture[i].properties.long); // x
-            y.push(tempture[i].geometry.coordinates[1]); // y
+            t.push(tempture[i][2]); // 权重值
+            x.push(tempture[i][0]); // x
+            y.push(tempture[i][1]); // y
             // L.circle([y[i], x[i]], { radius: 1 }).addTo(map);
         }
         var variogram = kriging.train(t, x, y, "exponential", 0, 30);
@@ -84,7 +84,7 @@ var TemperatureOverlay = L.Layer.extend({
 
         function returnImgae() {
             var mycanvas = document.getElementById("canvasMap");
-            return mycanvas.toDataURL("image/png");;
+            return mycanvas.toDataURL("image/png");
         }
 
         var imageBounds = [[18.1055, 73.4766], [53.5693, 135.0879]];

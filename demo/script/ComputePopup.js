@@ -25,50 +25,48 @@ L.ComputePopup = L.Popup.extend({
 // https://www.html.cn/tool/html2string/
 var popupContent = '\
 <div class=\'compute-popup\'>\
-       <div id=\'popup-title-max\'>\
-           <span class=\'popup-title\'>六项污染物</span>\
-           <span>\
-               <span class=\'popup-title\'>首要污染物</span>\
-               <span id=\'main-pollutants\'></span>\
-           </span>\
-           <img id=\'popup-close\' src=\'images/close.png\'>\
-       </div>\
-       <div id=\'popup-bottom\'>\
-           <div id=\'popup-span-left\'>\
-               <div style=\'padding-top: 12px;\'>\
-                   <button type=\'button\' id=\'hour-button\'>时</button>\
-                   <button type=\'button\' id=\'day-button\'>日</button>\
-               </div>\
-               <div class=\'div-value\'>\
-                   <p> PM2.5 <img src=\'images/line2.eps\'><input id=\'PM2.5-input\' type=\'text\'></p>\
-                   <p> PM10 <img src=\'images/line2.eps\'><input id=\'PM10-input\' type=\'text\'></p>\
-               </div>\
-               <div class=\'div-value\'>\
-                   <p>&ensp;&ensp;O3&ensp; <img src=\'images/line2.eps\'><input id=\'O3-input\' type=\'text\'></p>\
-                   <p>&ensp;CO&ensp; <img src=\'images/line2.eps\'><input id=\'CO-input\' type=\'text\'></p>\
-               </div>\
-               <div class=\'div-value\'>\
-                   <p> &ensp;SO2&ensp; <img src=\'images/line2.eps\'><input id=\'SO2-input\' type=\'text\'></p>\
-                   <p> NO2&ensp; <img src=\'images/line2.eps\'><input id=\'NO2-input\' type=\'text\'></p>\
-               </div>\
-               <button id=\'button-caculate\'>计算</button>\
-           </div>\
-           <div id=\'popup-span-right\'>\
-               <div>\
-                   <span>\
-                       <p id=\'composite-index-value\' style=\'font-size: 16px;\'></p>\
-                       <p style=\'font-size: 10px;\'> 综合指数</p>\
-                   </span>\
-                   <span style=\'width: 0.7px;height: 35px; background: #d4d4d4;\'></span>\
-                   <span>\
-                       <p id=\'aqi-index-value\' style=\'font-size: 16px;\'></p>\
-                       <p style=\'font-size: 10px;\'>AQI指数</p>\
-                   </span>\
-               </div>\
-               <div id=\'div-value-chart\'></div>\
-           </div>\
-       </div>\
-   </div>\
+    <div id=\'popup-title-max\'>\
+        <span class=\'popup-title\'>六项污染物</span>\
+        <span class=\'popup-title\' id="main-pollutants">首要污染物 SO2</span>\
+        </span>\
+        <img id=\'popup-close\' src=\'images/close.png\'>\
+    </div>\
+    <div id=\'popup-bottom\'>\
+        <div id=\'popup-span-left\'>\
+            <div style=\'padding-top: 10px;\'>\
+                <button type=\'button\' id=\'hour-button\'>时</button>\
+                <button type=\'button\' id=\'day-button\'>日</button>\
+            </div>\
+            <div class=\'div-value\'>\
+                <p>PM2.5<img src=\'images/line2.png\'><input type=\'text\' id=\'PM2.5-input\'></p>\
+                <p> PM10<img src=\'images/line2.png\'><input type=\'text\' id=\'PM10-input\'></p>\
+            </div>\
+            <div class=\'div-value\'>\
+                <p>&ensp;&ensp;O3&ensp;<img src=\'images/line2.png\'><input type=\'text\' id=\'O3-input\'></p>\
+                <p>&ensp;CO&ensp;<img src=\'images/line2.png\'><input type=\'text\' id=\'CO-input\'></p>\
+            </div>\
+            <div class=\'div-value\'>\
+                <p> &ensp;SO2&ensp;<img src=\'images/line2.png\'><input type=\'text\' id=\'SO2-input\'></p>\
+                <p> NO2&ensp;<img src=\'images/line2.png\'><input type=\'text\' id=\'NO2-input\'></p>\
+            </div>\
+            <button id=\'button-caculate\'>计算</button>\
+        </div>\
+        <div id=\'popup-span-right\'>\
+            <div style="background-color: #1e1e1e;">\
+                <span>\
+                    <p id=\'composite-index-value\' style=\'font-size: 15px;\'>78.23</p>\
+                    <p class=\'composite-index-word\' style=\'font-size: 8px;\'> 综合指数</p>\
+                </span>\
+                <span style=\'width: 0.8px;height: 40px; background: #d4d4d4;margin-top: 9px;\'></span>\
+                <span>\
+                    <p id=\'aqi-index-value\' style=\'font-size: 15px;\'>89</p>\
+                    <p class=\'aqi-index-word\' style=\'font-size: 8px;\'> AQI指数</p>\
+                </span>\
+            </div>\
+            <div id=\'div-value-chart\'></div>\
+        </div>\
+    </div>\
+</div>\
 '
 
 // 弹窗的功能交互

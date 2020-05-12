@@ -9,7 +9,7 @@ var IsolineOverlay = L.Layer.extend({
         this.isoline_layer = [];
         this.cfg = config;
         this.data = [];
-        if (this.cfg.nums != this.cfg.breaks.length ) {
+        if (this.cfg.nums != this.cfg.breaks.length) {
             throw Error('The length of icons is not equal to the numbers of your grade')
         }
     },
@@ -26,7 +26,6 @@ var IsolineOverlay = L.Layer.extend({
     onAdd: function (map) {
         this._map = map;
         // 一开始画数据
-        console.log('hhh')
         this._draw(this.data);
     },
 
@@ -41,10 +40,18 @@ var IsolineOverlay = L.Layer.extend({
         this.myGroup.clearLayers();
     },
 
+    // pointGrid
     _draw: function (pointGrid) {
+        // // create a grid of points with random z-values in their properties
+        // var extent = [50, 50, 80, 80];
+        // var cellWidth = 10;
+        // var pointGrid = turf.pointGrid(extent, cellWidth, { units: 'degrees' });
+
+        // for (var i = 0; i < pointGrid.features.length; i++) {
+        //     pointGrid.features[i].properties.temperature = Math.random() * 1000;
+        // }
         //等值线的级数
         var breaks = this.cfg.breaks;
-        //console.log(pointGrid)
         var lines = turf.isolines(pointGrid, breaks, { zProperty: 'temperature' });
 
         //设置颜色
@@ -54,10 +61,12 @@ var IsolineOverlay = L.Layer.extend({
         // 进行平滑处理
         var _lFeatures = lines.features;
         var marks = [];
+        console.log(_lFeatures.length)
         for (var i = 0; i < _lFeatures.length; i++) {
             var _coords = _lFeatures[i].geometry.coordinates;
             var _lCoords = [];
             var linemarks = [];
+            console.log(_coords.length);
             for (var j = 0; j < _coords.length; j++) {
                 var _coord = _coords[j];
                 var line = turf.lineString(_coord); // 点成线
@@ -80,6 +89,7 @@ var IsolineOverlay = L.Layer.extend({
             style: myStyle
         });
         isoline_lines.addTo(map)
+        console.log(isoline_lines);
         this.isoline_layer.push(isoline_lines);
         this.myGroup = L.layerGroup(this.isoline_layer);
         this._map.addLayer(this.myGroup);

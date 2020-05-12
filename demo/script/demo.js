@@ -1,43 +1,29 @@
 function initDemoMap() {
-  // 底图1
-  var Esri_WorldImagery = L.tileLayer(
-    "http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-    {
-      attribution:
-        "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, " +
-        "AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
-    }
-  );
+  var baidu_map = L.tileLayer.baidu({ layer: 'vec' });
+  var baidu_satellite = L.tileLayer.baidu({ layer: 'img' });
+  var baidu_map_big = L.tileLayer.baidu({ layer: 'vec', bigfont: true });
+  var baidu_satellite_big = L.tileLayer.baidu({ layer: 'img', bigfont: true });
+  var black = L.tileLayer.baidu({ layer: 'custom', customid: 'dark' });
+  var blue = L.tileLayer.baidu({ layer: 'custom', customid: 'midnight' });
 
-  // 底图2
-  var Esri_DarkGreyCanvas = L.esri.tiledMapLayer({
-    url: 'http://server.arcgisonline.com/arcgis/rest/services/ESRI_Imagery_World_2D/MapServer'
+  var map = L.map('map', {
+    crs: L.CRS.Baidu,
+    center: [39.13, 117.2],
+    zoom: 8,
+    layers: [baidu_map]
   });
-  // L.tileLayer(
-  //   "http://{s}.sm.mapstack.stamen.com/" +
-  //   "(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/" +
-  //   "{z}/{x}/{y}.png",
-  //   {
-  //     attribution:
-  //       "Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, " +
-  //       "NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community"
-  //   }
-  // );
 
-  // 地图层更换，为了简便在此只保留卫星地图
-  var baseLayers = {
-    "Grey Canvas": Esri_DarkGreyCanvas, // 地图名：底图2
-   // "Satellite": Esri_WorldImagery, // 地图名：底图1
+  var baseMaps = {
+    "百度地图": baidu_map,
+    "百度卫星": baidu_satellite,
+    "百度地图-大字体": baidu_map_big,
+    "百度卫星-大字体": baidu_satellite_big,
+    "自定义样式-黑色地图": black,
+    "自定义样式-蓝色地图": blue
   };
 
-  // map 成员变量，初始为卫星地图
-  var map = L.map("map", {
-    layers: [Esri_DarkGreyCanvas],
-    crs: L.CRS.EPSG4326,
-  });
-
   // 控制层，baselayers为底图更换， addTo 将 control 和 map 绑定
-  var layerControl = L.control.layers(baseLayers).addTo(map);
+  var layerControl = L.control.layers(baseMaps).addTo(map);
   // 初始化map定位
   map.setView([34, 105], 4.6);
 

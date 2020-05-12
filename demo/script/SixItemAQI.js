@@ -1,3 +1,6 @@
+// 污染物名字
+var aqi_name = ['SO2', 'NO2', 'PM10', 'CO', 'O3', 'PM2.5'];
+
 // 获得常规六项的输入值
 function getSixItems() {
     var six_items = []
@@ -14,8 +17,6 @@ function getSixItems() {
     return six_items;
 }
 
-// 污染物名字
-var aqi_name = ['SO2', 'NO2', 'PM10', 'CO', 'O3', 'PM2.5'];
 
 // 参与日所乘系数
 var aqi_day_index = [
@@ -106,11 +107,12 @@ function getAQI(six_items) {
             max_aqi_name = aqi_name[i];
         }
         composite_index = composite_index + aqi / concentration_limit[i]; // 计算综合指数
-    }
 
+    }
+    console.log(composite_index)
 
     // 填充首要污染物
-    document.getElementById('main-pollutants').innerHTML = max_aqi_name;
+    document.getElementById('main-pollutants').innerHTML = '首要污染物 ' + max_aqi_name;
     // 填充综合指数
     document.getElementById('composite-index-value').innerHTML = composite_index.toFixed(3);
     // 填充AQI指数

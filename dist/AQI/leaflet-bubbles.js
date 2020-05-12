@@ -44,11 +44,11 @@ var BubblesOverlay = L.Layer.extend({
             for (var j = 0; j < data_one.length; j++) {
                 mydata = data_one[j];
                 latlng = [];
-                latlng.push(mydata[1]);
-                latlng.push(mydata[0]);
+                latlng.push(mydata.lat);
+                latlng.push(mydata.lon);
                 // 文字标记
                 var myIcon = L.divIcon({
-                    html: mydata[2],
+                    html: mydata.num,
                     className: 'my-div-icon',
                     iconSize: 0
                 });
@@ -80,6 +80,8 @@ var BubblesOverlay = L.Layer.extend({
         oImg.src = this.cfg.src;
         oImg.id = 'AQI_img'
         oImg.style = "z-index:999;position: fixed;left:0;bottom:0"
+        oImg.style.width = "20%"
+        oImg.style.height = "20%"
         //将img插入li中
         // oLi.appendChild(oImg);
         //将li插入到ul中

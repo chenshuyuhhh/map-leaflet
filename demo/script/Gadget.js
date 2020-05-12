@@ -1,3 +1,4 @@
+// 小工具
 // Mercator-based Coordinate Reference System（CRS）
 var marker = L.marker([39.13, 117.2])
 // .addTo(map);
@@ -36,7 +37,7 @@ var data = [];
 function f(current) {
     if (current.districts.length != 0) {
         data.push({ "loc": [parseFloat(current.center.split(",")[1]), parseFloat(current.center.split(",")[0])], "title": current.name });
-        for (var i in current.districts) {
+        for (var i = 0; i < current.districts.length; i++) {
             f(current.districts[i]);
         }
     }
@@ -45,7 +46,7 @@ function f(current) {
     }
 }
 
-for (var i in rawData) {
+for (var i = 0; i < rawData.length; i++) {
     // [纬度,经度]
     f(rawData[i]);
 }

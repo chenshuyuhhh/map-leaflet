@@ -20,8 +20,8 @@
 	</div>
 	<table id='latlng'></table>
 
-	<script src="../data/wind-test.js"></script>
-
+	<!-- 命名 -->
+	<script src="script/name.js"></script>
 	<!--vendor-->
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<link rel="stylesheet" href="https://npmcdn.com/leaflet@1.1.0/dist/leaflet.css" />
@@ -46,6 +46,7 @@
 	<script src="../dist/AQI/leaflet-bubbles.js"></script>
 
 	<!-- temperature -->
+	<script src="../data/sites.js"></script>
 	<script src="../data/boundary.js"></script>
 	<script src="../data/temp-test.js"></script>
 	<script src="../dist/temperature/kriging.js"></script>
@@ -103,6 +104,12 @@
 	<script src="../dist/draw/edit/handler/Edit.CircleMarker.js"></script>
 	<script src="../dist/draw/edit/handler/Edit.Circle.js"></script>
 
+	<!-- baidu map -->
+	<script src="https://cdn.bootcss.com/proj4js/2.4.3/proj4.js"></script>
+    <script src="https://cdn.bootcss.com/proj4leaflet/1.0.1/proj4leaflet.min.js"></script>
+    <script src="../dist/leaflet-tileLayer-baidugaode/src/tileLayer.baidu.js"></script>
+
+
 	<!-- isoline-->
 	<script src="../data/isoline-test.js"></script>
 	<script src="../dist/isoline/leaflet-isoline.js"></script>
@@ -120,7 +127,6 @@
 
 	<!-- layer -->
 	<script src="script/Addlayer.js"></script>
-	<script src="script/ConventionalSixItems.js"></script>
 
 	<!-- Gadget -->
 	<script src="../data/geoinfo.js"></script>
