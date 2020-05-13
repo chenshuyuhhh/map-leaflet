@@ -51,6 +51,7 @@ var IsolineOverlay = L.Layer.extend({
         //     pointGrid.features[i].properties.temperature = Math.random() * 1000;
         // }
         //等值线的级数
+        console.log(pointGrid)
         var breaks = this.cfg.breaks;
         var lines = turf.isolines(pointGrid, breaks, { zProperty: 'temperature' });
 

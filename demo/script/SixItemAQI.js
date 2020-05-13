@@ -1,3 +1,5 @@
+var popup_compute_ishour = true; // 标记选中的是时计算，还是日计算
+
 // 污染物名字
 var aqi_name = ['SO2', 'NO2', 'PM10', 'CO', 'O3', 'PM2.5'];
 
@@ -63,27 +65,38 @@ var aqi_start = [0.0, 50.0, 100.0, 150.0, 200.0, 300.0, 400.0];
 // 浓度限制
 var concentration_limit = [150.0, 80.0, 150.0, 4.0, 160.0, 75.0];
 
+// 'SO2', 'NO2', 'PM10', 'CO', 'O3', 'PM2.5'
+var daily_standard = [150.0, 80.0, 150.0, 4.0, 160.0, 75.0];
+var hour_standard = [500.0, 200.0, 150.0, 10.0, 200.0, 75.0];
+
+
 // 进行AQI的计算
 function getAQI(six_items) {
-    var ishour = document.getElementById('hour-button');
-    if (ishour.style.color = '#1e1e1e') {
-        // 表示时被选中
-        ishour = true;
-    }
+    // console.log(popup_compute_ishour);
+
+    var composite_indexs = [];
+    var composite_sum = 0.0;
     var max_aqi = 0; // 用来存放每个污染物的aqi
     var max_aqi_name = '';
-    var composite_index = 0; // 用来存放每个污染物的分指数占比
+    // var composite_index = 0; // 用来存放每个污染物的分指数占比
     for (var i = 0; i < 6; i++) {
         var aqi_data_value = six_items[i]; // 获得污染物的值
         var aqi_data_level, aqi_data_index;
+        // console.log(aqi_data_value);
+        var composite_param;
 
-        if (ishour) {
+        if (popup_compute_ishour) {
             aqi_data_level = aqi_hour_level[i]; // 获得参与时该污染物的等级
             aqi_data_index = aqi_hour_index[i];
+            // 综合指数标准
+            composite_param = hour_standard[i];
         } else {
             aqi_data_level = aqi_day_level[i];// 获得参与日该污染物的等级
             aqi_data_index = aqi_day_index[i];
+            // 综合指数标准
+            composite_param = daily_standard[i];
         }
+
         var aqi_p = 0; // 等级
         for (var j = 0; j < 7; j++) { // find p
             if (aqi_data_level[j] > aqi_data_value) {
@@ -91,6 +104,11 @@ function getAQI(six_items) {
                 break; // 结束循环
             }
         }
+        // 计算各项综合指数
+        composite_indexs[i] = parseFloat(aqi_data_value) / composite_param;
+        // console.log(composite_indexs[i]);
+        // 计算总的综合指数
+        composite_sum = composite_sum + composite_indexs[i];
 
         aqi_data_index = aqi_data_index[aqi_p]; // 获得该等级下的指数
         var start = aqi_start[aqi_p]; // 起点指数
@@ -106,15 +124,18 @@ function getAQI(six_items) {
             max_aqi = aqi;
             max_aqi_name = aqi_name[i];
         }
-        composite_index = composite_index + aqi / concentration_limit[i]; // 计算综合指数
+        // composite_index = composite_index + aqi / concentration_limit[i]; // 计算综合指数
 
     }
-    console.log(composite_index)
+    // console.log(composite_index)
 
     // 填充首要污染物
     document.getElementById('main-pollutants').innerHTML = '首要污染物 ' + max_aqi_name;
     // 填充综合指数
-    document.getElementById('composite-index-value').innerHTML = composite_index.toFixed(3);
+    document.getElementById('composite-index-value').innerHTML = composite_sum.toFixed(3);
     // 填充AQI指数
     document.getElementById('aqi-index-value').innerHTML = max_aqi.toFixed(0);
+
+    // 返回综合指数，便于花饼图
+    return composite_indexs;
 }

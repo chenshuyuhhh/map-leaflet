@@ -187,42 +187,42 @@ $.getJSON(AQIs_now_url[6], function (data) {
     templayer.setData(data);
 });
 
-// 添加气压图
-// $.getJSON(pressure_now_url, function (data) {
-//     var isoline_begin = 0;
-//     var isoline_end = 10;
+添加气压图
+$.getJSON(pressure_now_url, function (data) {
+    var isoline_begin = 0;
+    var isoline_end = 10;
 
-//     //等值线的级数
-//     var isoline_breaks = [];
-//     var isoline_icons = [];
-//     for (var i = isoline_begin; i <= isoline_end; i = i + 2) {
-//         isoline_breaks.push(i);
-//         isoline_icons.push(L.icon({
-//             iconUrl: 'images/isoline_' + i / 2 + '.png',
-//             iconSize: [14, 14]
-//         }))
-//     }
+    //等值线的级数
+    var isoline_breaks = [];
+    var isoline_icons = [];
+    for (var i = isoline_begin; i <= isoline_end; i = i + 2) {
+        isoline_breaks.push(i);
+        isoline_icons.push(L.icon({
+            iconUrl: 'images/isoline_' + i / 2 + '.png',
+            iconSize: [14, 14]
+        }))
+    }
 
-//     //设置颜色
-//     var isoline_style = {
-//         "color": "#3985b6",
-//         "weight": 2,
-//         "opacity": 0.9
-//     };
+    //设置颜色
+    var isoline_style = {
+        "color": "#3985b6",
+        "weight": 2,
+        "opacity": 0.9
+    };
 
-//     var isoline_cfg = {
-//         style: isoline_style,
-//         nums: isoline_breaks.length,
-//         breaks: isoline_breaks,
-//         icons: isoline_icons,
-//     }
+    var isoline_cfg = {
+        style: isoline_style,
+        nums: isoline_breaks.length,
+        breaks: isoline_breaks,
+        icons: isoline_icons,
+    }
 
-//     var isoline_layer = new IsolineOverlay(isoline_cfg);
-//     layerControl.addOverlay(isoline_layer, '气压mmm');
-//     // 加入数据
-//     console.log(isoline_pointGrid);
-//     isoline_layer.setData(isoline_pointGrid);
-// });
+    var isoline_layer = new IsolineOverlay(isoline_cfg);
+    layerControl.addOverlay(isoline_layer, '气压mmm');
+    // 加入数据
+    console.log(tempture);
+    isoline_layer.setData(tempture);
+});
 
 
 

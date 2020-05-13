@@ -2,6 +2,7 @@
 // 日期，加入网址中
 var mydate = new Date();
 var date_now = mydate.getTime();
+var now_date = "11/1/2019"; // 为了现在测试，设置的假时间
 var date_1 = "";  // 1天以前的日期
 var date_2 = "";  // 2天以前的日期
 var date_3 = "";  // 2天以前的日期
