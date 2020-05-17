@@ -19,7 +19,6 @@ function getSixItems() {
     return six_items;
 }
 
-
 // 参与日所乘系数
 var aqi_day_index = [
     [1.0, 0.5, '2/13', '2/13', 0.125, 0.2, '5/26'], // SO2

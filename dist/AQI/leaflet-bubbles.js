@@ -79,9 +79,9 @@ var BubblesOverlay = L.Layer.extend({
         var oImg = document.createElement('img');
         oImg.src = this.cfg.src;
         oImg.id = 'AQI_img'
-        oImg.style = "z-index:999;position: fixed;left:0;bottom:0"
+        oImg.style = "z-index:999;position: fixed;right:26px;bottom:15px"
         oImg.style.width = "20%"
-        oImg.style.height = "20%"
+        oImg.style.height = "8%"
         //将img插入li中
         // oLi.appendChild(oImg);
         //将li插入到ul中

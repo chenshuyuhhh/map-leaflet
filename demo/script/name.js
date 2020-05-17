@@ -21,7 +21,7 @@ var windy_4_url = ""
 var windy_5_url = ""
 
 // 气压图，等压线
-var pressure_now_url = baseurl + "/isobaricline?date=11/1/2019"
+var pressure_now_url = "http://127.0.0.1:5501/data/isoline-test2.json"
 
 // AQI PM25 PM10 SO2 NO2 O3 CO
 //  0   1     2   3   4   5  6

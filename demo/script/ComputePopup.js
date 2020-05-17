@@ -28,7 +28,7 @@ var popupContent = '\
         <span class=\'popup-title\'>六项污染物</span>\
         <span class=\'popup-title\' id="main-pollutants">首要污染物 SO2</span>\
         </span>\
-        <img id=\'popup-close\' src=\'images/close.png\'>\
+        <img id=\'popup-close\' src=\'../demo/images/close.png\'>\
     </div>\
     <div id=\'popup-bottom\'>\
         <div id=\'popup-span-left\'>\
@@ -37,16 +37,16 @@ var popupContent = '\
                 <button type=\'button\' id=\'day-button\'>日</button>\
             </div>\
             <div class=\'div-value\'>\
-                <p>PM2.5<img src=\'images/line2.png\'><input type=\'text\' id=\'PM2.5-input\'></p>\
-                <p> PM10<img src=\'images/line2.png\'><input type=\'text\' id=\'PM10-input\'></p>\
+                <p>PM2.5<img src=\'../demo/images/line2.png\'><input type=\'text\' id=\'PM2.5-input\'></p>\
+                <p> PM10<img src=\'../demo/images/line2.png\'><input type=\'text\' id=\'PM10-input\'></p>\
             </div>\
             <div class=\'div-value\'>\
-                <p>&ensp;&ensp;O3&ensp; <img src=\'images/line2.png\'><input type=\'text\' id=\'O3-input\'></p>\
-                <p>&ensp;CO&ensp; <img src=\'images/line2.png\'><input type=\'text\' id=\'CO-input\'></p>\
+                <p>&ensp;&ensp;O3&ensp; <img src=\'../demo/images/line2.png\'><input type=\'text\' id=\'O3-input\'></p>\
+                <p>&ensp;CO&ensp; <img src=\'../demo/images/line2.png\'><input type=\'text\' id=\'CO-input\'></p>\
             </div>\
             <div class=\'div-value\'>\
-                <p> &ensp;SO2&ensp;<img src=\'images/line2.png\'><input type=\'text\' id=\'SO2-input\'></p>\
-                <p> NO2&ensp;<img src=\'images/line2.png\'><input type=\'text\' id=\'NO2-input\'></p>\
+                <p> &ensp;SO2&ensp;<img src=\'../demo/images/line2.png\'><input type=\'text\' id=\'SO2-input\'></p>\
+                <p> NO2&ensp;<img src=\'../demo/images/line2.png\'><input type=\'text\' id=\'NO2-input\'></p>\
             </div>\
             <button id=\'button-caculate\'>计算</button>\
         </div>\

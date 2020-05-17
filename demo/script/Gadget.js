@@ -83,7 +83,7 @@ var GadgetMarker = L.Icon.extend({
         shadowUrl: null,
         iconAnchor: new L.Point(12, 12),
         iconSize: new L.Point(24, 24),
-        iconUrl: 'images/site.png'
+        iconUrl: '../demo/images/site.png'
     }
 });
 var gadgetMarkerIcon = new GadgetMarker();
@@ -140,7 +140,7 @@ var on_compute_click = 0;
 // 附近站点显示的icon
 var siteIcon = L.Icon.extend({
     options: {
-        iconUrl: 'images/site_line.png',
+        iconUrl: '../demo/images/site_line.png',
         iconSize: [120, 120],
     }
 });

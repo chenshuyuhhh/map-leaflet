@@ -2,7 +2,7 @@ var IsolineOverlay = L.Layer.extend({
 
     /**
      * 
-     * @param {style:Object(样式), nums:Int(个数), breaks:Array(等值级别), icons:Array(每个等级的图标)} config 
+     * @param {style:Object(样式), nums:Int(个数), breaks:Array(等值级别)} config 
      */
     initialize: function (config) {
         this.myGroup = [];
@@ -57,26 +57,35 @@ var IsolineOverlay = L.Layer.extend({
 
         //设置颜色
         var myStyle = this.cfg.style;
-        var icons = this.cfg.icons;
 
         // 进行平滑处理
         var _lFeatures = lines.features;
         var marks = [];
-        console.log(_lFeatures.length)
         for (var i = 0; i < _lFeatures.length; i++) {
             var _coords = _lFeatures[i].geometry.coordinates;
             var _lCoords = [];
             var linemarks = [];
-            console.log(_coords.length);
+            var temperature_value = _lFeatures[i].properties.temperature;
             for (var j = 0; j < _coords.length; j++) {
                 var _coord = _coords[j];
                 var line = turf.lineString(_coord); // 点成线
-                var curved = turf.bezierSpline(line); // 直线平滑成曲线
+                var options = {
+                    resolution: 20000,
+                    sharpness: 0.88
+                };
+                var curved = turf.bezierSpline(line, options); // 直线平滑成曲线
                 coordinate = curved.geometry.coordinates[curved.geometry.coordinates.length / 2];
                 temp = [];
                 temp.push(coordinate[1]);
                 temp.push(coordinate[0]);
-                var isoline_marker = L.marker(temp, { icon: icons[i] }).addTo(map)
+                var isoline_marker = L.marker(temp, {
+                    icon: L.divIcon({
+                        className: 'text-labels',//Set class for CSS styling
+                        html: temperature_value
+                    }),
+                    draggable: true,//Allow label dragging...?
+                    //zIndexOffset: 1000//Make appear 上面 other map features
+                });
                 this.isoline_layer.push(isoline_marker);
                 linemarks.push(curved.geometry.coordinates[0]);
                 _lCoords.push(curved.geometry.coordinates);
@@ -84,7 +93,6 @@ var IsolineOverlay = L.Layer.extend({
             marks.push(linemarks);
             _lFeatures[i].geometry.coordinates = _lCoords;
         }
-
         //geojson数据读取
         var isoline_lines = L.geoJSON(lines, {
             style: myStyle
@@ -102,6 +110,7 @@ var IsolineOverlay = L.Layer.extend({
      */
     setData: function (data) {
         this.data = data;
+        console.log('set data');
     },
 
     /**

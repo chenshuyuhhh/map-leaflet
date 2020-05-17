@@ -14,34 +14,36 @@ $.getJSON(windy_now_url, function (data) {
     layerControl.addOverlay(velocityLayer, "风场");
 });
 
-// 添加气压图
+
 $.getJSON(pressure_now_url, function (data) {
-    var isoline_begin = 500;
-    var isoline_end = 1000;
+    console.log(data)
+    var isoline_begin = 500; // 500-700  40
+    var isoline_end1 = 630; // 700-940  100
+    var isoline_end2 = 960; // 940-1020 30
+    var isoline_end3 = 1023; // 1020-1028 2
+    var isoline_end4 = 1030;
+    var isoline_bound = [isoline_begin, isoline_end1, isoline_end2, isoline_end3, isoline_end4];
+    var isoline_div = [40, 100, 30, 2];
 
     //等值线的级数
     var isoline_breaks = [];
-    var isoline_icons = [];
-    for (var i = isoline_begin; i <= isoline_end; i = i + 100) {
-        isoline_breaks.push(i);
-        isoline_icons.push(L.icon({
-            iconUrl: 'images/pressure/' + i + '.png',
-            iconSize: [14, 14]
-        }))
+    for (var j = 0; j < isoline_div.length; j++) {
+        for (var i = isoline_bound[j]; i <= isoline_bound[j + 1]; i = i + isoline_div[j]) {
+            isoline_breaks.push(i);
+        }
     }
 
     //设置颜色
     var isoline_style = {
-        "color": "#3985b6",
-        "weight": 2,
-        "opacity": 0.9
+        "color": "#ff7800",
+        "weight": 1.5,
+        "opacity": 1
     };
 
     var isoline_cfg = {
         style: isoline_style,
         nums: isoline_breaks.length,
         breaks: isoline_breaks,
-        icons: isoline_icons,
     }
 
     var isoline_layer = new IsolineOverlay(isoline_cfg);
@@ -62,7 +64,7 @@ $.getJSON(AQIs_now_url[0], function (data) {
         colors: mycolors, // 每个等级对应的颜色
         fontSize: '13px', // 字体大小
         fontColor: '#cccccc', //字体颜色
-        src: 'images/AQI.png'
+        src: '../demo/images/AQI.png'
     };
 
     var templayer = new BubblesOverlay(cfg);
@@ -82,7 +84,7 @@ $.getJSON(AQIs_now_url[1], function (data) {
         colors: mycolors, // 每个等级对应的颜色
         fontSize: '13px', // 字体大小
         fontColor: '#cccccc', //字体颜色
-        src: 'images/AQI.png'
+        src: '../demo/images/AQI.png'
     };
 
     var templayer = new BubblesOverlay(cfg);
@@ -101,7 +103,7 @@ $.getJSON(AQIs_now_url[2], function (data) {
         colors: mycolors, // 每个等级对应的颜色
         fontSize: '13px', // 字体大小
         fontColor: '#cccccc', //字体颜色
-        src: 'images/AQI.png'
+        src: '../demo/images/AQI.png'
     };
 
     var templayer = new BubblesOverlay(cfg);
@@ -120,7 +122,7 @@ $.getJSON(AQIs_now_url[3], function (data) {
         colors: mycolors, // 每个等级对应的颜色
         fontSize: '13px', // 字体大小
         fontColor: '#cccccc', //字体颜色
-        src: 'images/AQI.png'
+        src: '../demo/images/AQI.png'
     };
 
     var templayer = new BubblesOverlay(cfg);
@@ -139,7 +141,7 @@ $.getJSON(AQIs_now_url[4], function (data) {
         colors: mycolors, // 每个等级对应的颜色
         fontSize: '13px', // 字体大小
         fontColor: '#cccccc', //字体颜色
-        src: 'images/AQI.png'
+        src: '../demo/images/AQI.png'
     };
 
     var templayer = new BubblesOverlay(cfg);
@@ -158,7 +160,7 @@ $.getJSON(AQIs_now_url[5], function (data) {
         colors: mycolors, // 每个等级对应的颜色
         fontSize: '13px', // 字体大小
         fontColor: '#cccccc', //字体颜色
-        src: 'images/AQI.png'
+        src: '../demo/images/AQI.png'
     };
 
     var templayer = new BubblesOverlay(cfg);
@@ -177,7 +179,7 @@ $.getJSON(AQIs_now_url[6], function (data) {
         colors: mycolors, // 每个等级对应的颜色
         fontSize: '13px', // 字体大小
         fontColor: '#cccccc', //字体颜色
-        src: 'images/CO.png'
+        src: '../demo/images/CO.png'
     };
 
     var templayer = new BubblesOverlay(cfg);
@@ -186,44 +188,6 @@ $.getJSON(AQIs_now_url[6], function (data) {
     // 加入数据
     templayer.setData(data);
 });
-
-添加气压图
-$.getJSON(pressure_now_url, function (data) {
-    var isoline_begin = 0;
-    var isoline_end = 10;
-
-    //等值线的级数
-    var isoline_breaks = [];
-    var isoline_icons = [];
-    for (var i = isoline_begin; i <= isoline_end; i = i + 2) {
-        isoline_breaks.push(i);
-        isoline_icons.push(L.icon({
-            iconUrl: 'images/isoline_' + i / 2 + '.png',
-            iconSize: [14, 14]
-        }))
-    }
-
-    //设置颜色
-    var isoline_style = {
-        "color": "#3985b6",
-        "weight": 2,
-        "opacity": 0.9
-    };
-
-    var isoline_cfg = {
-        style: isoline_style,
-        nums: isoline_breaks.length,
-        breaks: isoline_breaks,
-        icons: isoline_icons,
-    }
-
-    var isoline_layer = new IsolineOverlay(isoline_cfg);
-    layerControl.addOverlay(isoline_layer, '气压mmm');
-    // 加入数据
-    console.log(tempture);
-    isoline_layer.setData(tempture);
-});
-
 
 
 // var tempcolors = ["#006837", "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf",
